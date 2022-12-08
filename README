@@ -1,0 +1,116 @@
+# ================================================================================
+# Project: equus_public (Equus model version for public release)
+#
+# Purpose: Quantitative horseplaying tools 
+# 
+# Creator: Keith A. Bush, Ph.D. (Twitter: @thoreval)
+#
+# ================================================================================
+# Structure
+# ================================================================================
+# This project uses a modified YODA architecture for data science. The internal
+# code and data are organized as follows:
+#
+# /equus_public              
+#
+#     configure.py             # Initialize directories (edit for years)
+#
+#     /modules                 # System code
+#
+#         params.py            # Top-level project parameters
+#
+#         run_bristools.py     # Hook to bristools module
+#  
+#         /bristools           # Module code that parses raw Brisnet *.DRF files
+#                              # into a Pandas dataframe according to Brisnet
+#                              # published data structures for past performances
+#                              # and results.
+#
+#     /envs                    # Python3 requirements files
+#
+#     /docs                    # Documentation related to data and modules
+#
+#     /inputs                  # All project inputs
+#
+#         /bris                # Raw bris files
+#
+#	      /pp              # Past performance files (unzipped)
+#
+#                 /<years>
+#
+#             /res             # Comprehensive chart files (unzipped)
+#
+#                 /<years>
+#
+#     /outputs                 # All project outputs
+#
+#         /features            # Features derived from data (*.csv)
+#
+#         /log                 # Log files
+#
+#         /tmp                 # Temporary files
+# 
+# ================================================================================
+# Installation
+# ================================================================================
+# 
+# REQUIREMENTS
+#
+#   You will need a mac or linux computer with git, python3, and pip3 installed.
+#   Follow the steps below to get the project’s code running on your system.
+# 
+# STEP 1: CLONE THE PROJECT
+#
+#   git clone https://github.com/kabush/equus_public
+# 
+# STEP 2: CHECK/INSTALL PYTHON REQUIREMENTS
+#
+#   cd equus_public
+#   less ./envs/requirements.txt
+#   pip3 install -r ./envs/requirements.txt
+# 
+# STEP 3: CONFIGURE INPUT/OUTPUT DIRECTORIES
+# 
+#   python3 ./configure.py
+#
+# STEP 4: ACQUIRE A SMALL SET OF BRISNET DATA FILES FOR TESTING
+#
+#   The Equus system relies primarily on brisnet data. You will need a brisnet
+#   account (with payment access). Go to brisnet.com to sign up. You must login,
+#   select, purchase, and download two data files to test that your installation is
+#   working ($1.50 total cost).  For demonstration purposes, I will detail the
+#   process using data for Aqueduct, Saturday November 5, 2022. 
+# 
+#   Download the (single file format) past performance file: aqu1105k.zip
+#   Download the associated comprehensive chart file: aqu11052022c.zip
+#
+# STEP 5: UNZIP FILES
+# 
+#   unzip aqu1105k.zip		//yields file:  AQU1105.DRF
+#   unzip aqu11052022c.zip 	//yields set of files:	AQU11052022.1
+#							AQU11052022.2
+#							AQU11052022.3
+#							AQU11052022.4
+#							AQU11052022.5
+#							AQU11052022.6
+#
+# STEP 6: MOVE THE UNZIPPED FILES TO THE APPROPRIATE PROJECT INPUT DIRECTORIES*
+# 
+#   mv AQU1105.DRF <project_path>/inputs/bris/pp/2022/
+#   mv AQU11052022.* <project path>/inputs/bris/res/2022/
+# 
+#   *Note: files must be placed in the correct <year> directory within /pp and /res,
+#   respectively.
+#
+# STEP 7: RUN THE BRISTOOLS MODULE
+#
+#   cd modules
+#   python3 ./run_bristools.py -v bris
+#
+# STEP 8: CHECK THAT THE FILES WERE CORRECTLY PROCESSED.*
+#
+#   less ../outputs/features/bris/features.csv
+# 
+#   *You should see a 509 element header followed by 104 rows of data conforming to
+#   the header organization  (unfortunately I can’t show any data in the rows due to
+#   data sharing restrictions).

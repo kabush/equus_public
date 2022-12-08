@@ -1,0 +1,14 @@
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+.\#*
+
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+inputs/bris
+outputs
